@@ -1,0 +1,10 @@
+#Pycharm specific
+.idea
+pic
+arc_face
+output
+silentFace_model
+weights/anti_spoof_models
+weights/arcface_weights
+weights/cnn_weights
+weights/yolov5_weights
