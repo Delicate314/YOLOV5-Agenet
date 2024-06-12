@@ -3,7 +3,7 @@ from __future__ import print_function
 import argparse
 
 import cv2
-from arc_face import *
+
 import torch
 import numpy as np
 import torch.backends.cudnn as cudnn
@@ -13,8 +13,6 @@ from yoloV5_face.utils import google_utils
 from yoloV5_face.utils.datasets import *
 from yoloV5_face.utils.utils import *
 
-from silentFace_model.predict_net import *
-from silentFace_model.predict_net import AntiSpoofPredict
 from AgeCNN import AgeNet
 
 #训练时候train保存的路径和yoloV5_face/model以及yoloV5_face/utils 同一路径，所以main加载权重的时候会出现路径错误，加上这段就好了。
@@ -100,13 +98,11 @@ def detect(save_img=False):
 
     model.to(device).eval()
 
-    arcface_model = resnet_face18(False)
 
-    arcface_model = DataParallel(arcface_model)
-    # load_model(model, opt.test_model_path)
-    arcface_model.load_state_dict(torch.load(Areface_weights), strict=False)
-    arcface_model.to(device).eval()
-    pred_model = AntiSpoofPredict(0)
+
+    
+
+
     # 加载年龄预测模型
     age_model = torch.load('weights/cnn_weights/best_model5.pt',map_location=torch.device('cpu'))
     age_model.eval()
@@ -114,7 +110,6 @@ def detect(save_img=False):
     if half:
         model.half()  # to FP16
 
-    features = get_featuresdict(arcface_model, dir)
 
     vid_path, vid_writer = None, None
     if webcam:
